@@ -12,40 +12,46 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:paddingBottom="150dip"/>
+        android:background="#ffffff"
+        android:paddingBottom="150dip" />
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="150dip"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentBottom="true">
 
-        <RelativeLayout
-            android:layout_width="150dip"
-            android:layout_height="150dip">
+        <ImageView
+            android:id="@+id/buttonVolume"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:background="@drawable/ic_volume_up_black_24dp"
+            android:padding="35dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
-            <ImageView
-                android:id="@+id/buttonVolume"
-                android:background="@drawable/ic_volume_up_black_24dp"
-                android:layout_width="100dip"
-                android:layout_height="100dip"
-                android:padding="10dip"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"/>
+        <!--<View-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"/>-->
 
-        </RelativeLayout>
+        <!--<ImageView-->
+        <!--android:id="@+id/buttonFire"-->
+        <!--android:layout_width="150dip"-->
+        <!--android:layout_height="150dip"-->
+        <!--android:padding="10dip" />-->
 
         <ImageView
             android:id="@+id/buttonFire"
             android:layout_width="150dip"
             android:layout_height="150dip"
-            android:padding="10dip" />
+            android:padding="10dip"
+            android:src="@drawable/fire_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
-    </LinearLayout>
-
-
-
+    </RelativeLayout>
 
 
 </RelativeLayout>

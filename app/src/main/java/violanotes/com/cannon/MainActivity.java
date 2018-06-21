@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -77,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         try {
 
             final ImageView buttonFire = (ImageView) findViewById(R.id.buttonFire);
-            Bitmap fireImage = BitmapFactory.decodeResource(getResources(), R.raw.explosion);
-            buttonFire.setImageBitmap(fireImage);
+//            Bitmap fireImage = BitmapFactory.decodeResource(getResources(), R.raw.explosion);
+//            buttonFire.setImageBitmap(fireImage);
 
 //            ImageView buttonVolume = (ImageView) findViewById(R.id.buttonVolume);
 //            Bitmap volumeImage = BitmapFactory.decodeResource(getResources(), R.raw.explosion);
@@ -99,6 +100,16 @@ public class MainActivity extends AppCompatActivity {
                     volumeOn = !volumeOn;
                 }
             });
+
+//            final Button buttonPrep = (Button) findViewById(R.id.buttonPrep);
+//            buttonPrep.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View b) {
+//                    // prep stuff
+//                    System.out.println("prep...");
+//                    soundPool.play(cannon, 0.5f, 0.5f, 1, 0, 1f);
+//                }
+//            });
 
 
             ArrayList<Integer> imagesArray = new ArrayList<Integer>();
@@ -124,17 +135,20 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         setupAudio2();
 
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(4000);
-                    soundPool.play(cannon, 0.0f, 0.0f, 1, -1, 1f);
-                } catch (Exception e) {
-
-                }
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(4000);
+//                    SoundPool soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 100);
+//                    int cannon = soundPool.load(MainActivity.this, R.raw.cannon4, 1);
+//
+//                    soundPool.play(cannon, 0.5f, 0.5f, 1, 0, 1f);
+//                } catch (Exception e) {
+//
+//                }
+//            }
+//        }.start();
 
     }
 
