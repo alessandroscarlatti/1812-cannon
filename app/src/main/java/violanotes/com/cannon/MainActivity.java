@@ -1,189 +1,99 @@
 package violanotes.com.cannon;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.widget.Button;
+import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final List<MediaPlayer> cannons = new ArrayList<>();
-    private final int cannonsSize = 40;
-    private int cannonIndex = 0;
-
     private int silence;
     private int cannon;
-
     private boolean volumeOn = true;
-
-    private static final Integer[] IMAGES= {
-            R.raw.page1,
-            R.raw.page2,
-            R.raw.page3,
-            R.raw.page4,
-            R.raw.page5,
-            R.raw.page6,
-            R.raw.page7,
-            R.raw.page8,
-            R.raw.page9,
-            R.raw.page10,
-            R.raw.page11,
-            R.raw.page12,
-            R.raw.page13,
-            R.raw.page14,
-            R.raw.page15,
-            R.raw.page16,
-            R.raw.page17,
-            R.raw.page18,
-            R.raw.page19,
-            R.raw.page20,
-            R.raw.page21,
-            R.raw.page22,
-            R.raw.page23,
-            R.raw.page24,
-            R.raw.pageb1,
-            R.raw.pageb2,
-            R.raw.pageb3,
-            R.raw.pageb4,
-            R.raw.pageb5,
-            R.raw.pageb6,
-            R.raw.pageb7,
-            R.raw.pageb8,
-            R.raw.pageb9
-    };
-
+    private ImageView btnVolume;
+    private ImageView btnFire;
+    private ViewPager vwScore;
     private static SoundPool soundPool;
-    private static Map soundPoolMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        injectControls();
+        setupControls();
+    }
 
-        try {
+    private void injectControls() {
+        btnFire = (ImageView) findViewById(R.id.buttonFire);
+        btnVolume = (ImageView) findViewById(R.id.buttonVolume);
+        vwScore = (ViewPager) findViewById(R.id.pager);
+    }
 
-            final ImageView buttonFire = (ImageView) findViewById(R.id.buttonFire);
-//            Bitmap fireImage = BitmapFactory.decodeResource(getResources(), R.raw.explosion);
-//            buttonFire.setImageBitmap(fireImage);
+    private void setupControls() {
+        btnVolume.setOnClickListener(new ToggleVolume());
+        btnFire.setOnTouchListener(new FireCannon());
+        setupVwScore();
+    }
 
-//            ImageView buttonVolume = (ImageView) findViewById(R.id.buttonVolume);
-//            Bitmap volumeImage = BitmapFactory.decodeResource(getResources(), R.raw.explosion);
-//            buttonVolume.setImageBitmap(volumeImage);
+    private void setupVwScore() {
+        ArrayList<Integer> imagesArray = new ArrayList<Integer>();
+        for (int i : Score.Pages) {
+            imagesArray.add(i);
+        }
+        vwScore.setAdapter(new SlidingImageAdapter(MainActivity.this, imagesArray));
+    }
 
+    private class ToggleVolume implements View.OnClickListener {
 
-            final ImageView buttonVolume = (ImageView) findViewById(R.id.buttonVolume);
-            buttonVolume.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (volumeOn) {
-                        buttonVolume.setBackgroundResource(R.drawable.ic_volume_off_black_24dp);
-                    } else {
-                        buttonVolume.setBackgroundResource(R.drawable.ic_volume_up_black_24dp);
-                    }
-
-                    volumeOn = !volumeOn;
-                }
-            });
-
-//            final Button buttonPrep = (Button) findViewById(R.id.buttonPrep);
-//            buttonPrep.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View b) {
-//                    // prep stuff
-//                    System.out.println("prep...");
-//                    soundPool.play(cannon, 0.5f, 0.5f, 1, 0, 1f);
-//                }
-//            });
-
-
-            ArrayList<Integer> imagesArray = new ArrayList<Integer>();
-
-            for (int i : IMAGES) {
-                imagesArray.add(i);
+        @Override
+        public void onClick(View v) {
+            if (volumeOn) {
+                btnVolume.setBackgroundResource(R.drawable.ic_volume_off_black_24dp);
+            } else {
+                btnVolume.setBackgroundResource(R.drawable.ic_volume_up_black_24dp);
             }
 
-            ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-            viewPager.setAdapter(new SlidingImageAdapter(MainActivity.this, imagesArray));
-
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            volumeOn = !volumeOn;
         }
+    }
 
+    private class FireCannon implements View.OnTouchListener {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (!volumeOn) return true;
+
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                try {
+                    soundPool.play(cannon, 0.5f, 0.5f, 1, 0, 1f);
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return true;
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        setupAudio2();
-
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(4000);
-//                    SoundPool soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 100);
-//                    int cannon = soundPool.load(MainActivity.this, R.raw.cannon4, 1);
-//
-//                    soundPool.play(cannon, 0.5f, 0.5f, 1, 0, 1f);
-//                } catch (Exception e) {
-//
-//                }
-//            }
-//        }.start();
-
+        setupAudio();
     }
 
-
-
-    private void setupAudio2() {
+    private void setupAudio() {
 
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 100);
-
         silence = soundPool.load(this, R.raw.silence_short, 1);
         cannon = soundPool.load(this, R.raw.cannon4, 1);
-
-//        soundPoolMap = new HashMap(2);
-//        soundPoolMap.put(R.raw.cannon4, soundPool.load(this, R.raw.cannon4, 1));
-//        soundPoolMap.put(R.raw.silence_short, soundPool.load(this, R.raw.silence_short, 1));
-
-
-        ImageView imageView = (ImageView) findViewById(R.id.buttonFire);
-        imageView.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    try {
-                        if (volumeOn)
-                            soundPool.play(cannon, 0.5f, 0.5f, 1, 0, 1f);
-                    } catch (IllegalStateException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                return true;
-            }
-        });
     }
 
     @Override
