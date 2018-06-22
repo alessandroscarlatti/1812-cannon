@@ -1,4 +1,4 @@
-package violanotes.com.cannon;
+package com.scarlatti.cannon;
 
 import android.content.Context;
 import android.os.Parcelable;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import violanotes.com.cannon.R;
 
 public class SlidingImageAdapter extends PagerAdapter {
 

@@ -1,4 +1,4 @@
-package violanotes.com.cannon;
+package com.scarlatti.cannon;
 
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import violanotes.com.cannon.R;
 
 public class MainActivity extends AppCompatActivity {
 

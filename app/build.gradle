@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "violanotes.com.helloworld1"
+        applicationId "com.scarlatti.cannon"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1

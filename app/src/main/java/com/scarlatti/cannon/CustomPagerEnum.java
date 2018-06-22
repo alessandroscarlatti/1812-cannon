@@ -1,4 +1,6 @@
-package violanotes.com.cannon;
+package com.scarlatti.cannon;
+
+import violanotes.com.cannon.R;
 
 /**
  * Created by pc on 6/20/2017.
