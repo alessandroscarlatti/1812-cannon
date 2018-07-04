@@ -39,7 +39,9 @@ public interface Score {
             R.raw.pageb5,
             R.raw.pageb6,
             R.raw.pageb7,
-            R.raw.pageb8,
-            R.raw.pageb9
+            R.raw.coda1,
+            R.raw.coda2,
+//            R.raw.pageb8,
+//            R.raw.pageb9
     };
 }
